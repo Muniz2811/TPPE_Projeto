@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  # Backend service
+  backend:
+    build: ./backend
+    container_name: sistema-vendas-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongodb:27017/sistema-vendas
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    command: npm run dev
+
+  # Frontend service
+  frontend:
+    build: ./frontend
+    container_name: sistema-vendas-frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    command: npm start
+
+  # MongoDB service
+  mongodb:
+    image: mongo:latest
+    container_name: sistema-vendas-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+    environment:
+      - MONGO_INITDB_DATABASE=sistema-vendas
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
