@@ -47,21 +47,10 @@ EntregaMP-JS/
 │       └── historias-usuario.md
 ├── backend/
 │   ├── src/
-│   │   ├── controllers/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── schemas/
 │   │   └── app.js
 │   ├── package.json
 │   └── Dockerfile
 ├── frontend/
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── components/
-│   │   │   ├── models/
-│   │   │   └── services/
-│   │   ├── assets/
-│   │   └── environments/
 │   ├── package.json
 │   └── Dockerfile
 ├── docker-compose.yml
