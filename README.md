@@ -20,7 +20,7 @@ O projeto utiliza Docker Compose para facilitar a configuração do ambiente de 
 
 1. Certifique-se de ter o Docker e o Docker Compose instalados
 2. Clone o repositório
-3. Execute `docker-compose up` na raiz do projeto
+3. Execute `docker compose up` na raiz do projeto
 4. Acesse o frontend em `http://localhost:4200`
 5. Acesse o backend em `http://localhost:3000`
 
