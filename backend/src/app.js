@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 const DatabaseConnection = require('./config/database');
 const routes = require('./routes');
+const { swaggerUi, swaggerDocs } = require('./config/swagger');
 
 // Configuração das variáveis de ambiente
 dotenv.config();
@@ -25,6 +26,9 @@ const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/sistema-ven
 DatabaseConnection.connect(mongoURI)
   .then(() => console.log('Conectado ao MongoDB'))
   .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
+
+// Documentação Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, { explorer: true }));
 
 // Rotas da API
 app.use('/api', routes);
