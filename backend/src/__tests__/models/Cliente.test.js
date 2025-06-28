@@ -32,7 +32,7 @@ describe('Cliente Model', () => {
       const cliente = new Cliente({ ...clienteData, forma_pagamento: undefined });
       const validationError = cliente.validateSync();
       expect(validationError.errors.forma_pagamento).toBeDefined();
-      expect(validationError.errors.forma_pagamento.message).toContain('obrigatório');
+      expect(validationError.errors.forma_pagamento.message).toContain('Forma de pagamento é obrigatória');
     });
 
     it('should require rg', async () => {
@@ -46,7 +46,7 @@ describe('Cliente Model', () => {
       const cliente = new Cliente({ ...clienteData, forma_pagamento: 'Método Inválido' });
       const validationError = cliente.validateSync();
       expect(validationError.errors.forma_pagamento).toBeDefined();
-      expect(validationError.errors.forma_pagamento.message).toContain('is not a valid enum value');
+      expect(validationError.errors.forma_pagamento.message).toContain('não é uma forma de pagamento válida');
     });
 
     it('should set tipo as Cliente', () => {
@@ -74,23 +74,23 @@ describe('Cliente Model', () => {
     });
 
     it('should get forma_pagamento correctly', () => {
-      expect(cliente.getFormaPagamento()).toBe(clienteData.forma_pagamento);
+      expect(cliente.getFormaPag()).toBe(clienteData.forma_pagamento);
     });
 
     it('should set forma_pagamento correctly', () => {
-      cliente.setFormaPagamento('Pix');
+      cliente.setFormaPag('Pix');
       expect(cliente.forma_pagamento).toBe('Pix');
-      expect(cliente.getFormaPagamento()).toBe('Pix');
+      expect(cliente.getFormaPag()).toBe('Pix');
     });
 
     it('should get rg correctly', () => {
-      expect(cliente.getRg()).toBe(clienteData.rg);
+      expect(cliente.getRG()).toBe(clienteData.rg);
     });
 
     it('should set rg correctly', () => {
-      cliente.setRg('7654321');
+      cliente.setRG('7654321');
       expect(cliente.rg).toBe('7654321');
-      expect(cliente.getRg()).toBe('7654321');
+      expect(cliente.getRG()).toBe('7654321');
     });
 
     // Inherited methods from Pessoa
@@ -122,11 +122,12 @@ describe('Cliente Model', () => {
     it('should find cliente by CPF', async () => {
       // First save a cliente
       const cliente = new Cliente(clienteData);
-      await cliente.save();
+      const savedCliente = await cliente.save();
       
       // Then find by CPF
       const foundCliente = await Cliente.findOne({ cpf: clienteData.cpf });
       expect(foundCliente).toBeDefined();
+      expect(foundCliente).not.toBeNull();
       expect(foundCliente.nome).toBe(clienteData.nome);
     });
   });

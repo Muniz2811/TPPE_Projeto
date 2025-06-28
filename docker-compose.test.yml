@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # MongoDB service
+  mongodb-test:
+    image: mongo:latest
+    container_name: sistema-vendas-mongodb-test
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=sistema-vendas-test
+    volumes:
+      - mongodb-test-data:/data/db
+    networks:
+      - test-network
+
+  # Backend test service
+  backend-test:
+    build: ./backend
+    container_name: sistema-vendas-backend-test
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=test
+      - MONGODB_URI=mongodb://mongodb-test:27017/sistema-vendas-test
+      - PORT=3000
+      - JWT_SECRET=test_secret_key
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - mongodb-test
+    networks:
+      - test-network
+    command: ./docker-test.sh
+
+networks:
+  test-network:
+    driver: bridge
+
+volumes:
+  mongodb-test-data:
