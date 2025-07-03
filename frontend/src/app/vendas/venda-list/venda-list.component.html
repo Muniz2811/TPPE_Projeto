@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="header">
+    <h2>Gerenciamento de Vendas</h2>
+    <button class="btn-primary" (click)="adicionarVenda()">Nova Venda</button>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Carregando vendas...</p>
+  </div>
+
+  <div *ngIf="!loading && !error && vendas.length === 0" class="empty-state">
+    <p>Nenhuma venda cadastrada.</p>
+    <button class="btn-primary" (click)="adicionarVenda()">Cadastrar Nova Venda</button>
+  </div>
+
+  <div *ngIf="!loading && !error && vendas.length > 0" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Identificador</th>
+          <th>Data</th>
+          <th>Valor Total</th>
+          <th>Cliente</th>
+          <th>Produto</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let venda of vendas">
+          <td>{{ venda.identificador }}</td>
+          <td>{{ formatarData(venda) }}</td>
+          <td>{{ venda.valor_total | currency:'BRL' }}</td>
+          <td>{{getNomeCliente(venda.clnt)}}</td>
+          <td>{{getNomeProduto(venda.prod)}}</td>
+          <td class="actions">
+            <button class="btn-edit" (click)="editarVenda(venda._id)">Editar</button>
+            <button class="btn-delete" (click)="excluirVenda(venda._id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="back-link">
+    <a routerLink="/home">Voltar para a página inicial</a>
+  </div>
+</div>
