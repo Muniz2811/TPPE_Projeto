@@ -1,0 +1,1 @@
+# Componente de Listagem de Vendas\n\nEste componente exibe a lista de vendas com informações detalhadas como cliente, produto, data e valor.\n\n## Notas de implementação\n\n- O método extrairId foi adicionado para lidar com diferentes formatos de ID\n- Logs foram incluídos para depuração
