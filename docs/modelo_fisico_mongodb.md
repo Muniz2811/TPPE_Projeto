@@ -11,7 +11,7 @@ Esta é uma coleção base que utiliza discriminadores para armazenar tanto clie
   "telefone": "String",
   "endereco": "String",
   "email": "String",
-  "tipo": "String",  // "Cliente" ou "Fabricante" (discriminador)
+  "tipo": "String", 
   "createdAt": "Date",
   "updatedAt": "Date"
 }
@@ -25,9 +25,9 @@ Esta é uma coleção base que utiliza discriminadores para armazenar tanto clie
   "telefone": "String",
   "endereco": "String",
   "email": "String",
-  "tipo": "Cliente",  // discriminador
-  "cpf": "String",      // único
-  "forma_pagamento": "String",  // enum: ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito', 'Pix', 'Boleto']
+  "tipo": "Cliente", 
+  "cpf": "String",      
+  "forma_pagamento": "String",  
   "rg": "String",
   "createdAt": "Date",
   "updatedAt": "Date"
@@ -42,9 +42,9 @@ Esta é uma coleção base que utiliza discriminadores para armazenar tanto clie
   "telefone": "String",
   "endereco": "String",
   "email": "String",
-  "tipo": "Fabricante",  // discriminador
+  "tipo": "Fabricante",  
   "razao_social": "String",
-  "cnpj": "String",        // único
+  "cnpj": "String",        
   "contato": "String",
   "createdAt": "Date",
   "updatedAt": "Date"
@@ -59,7 +59,7 @@ Esta é uma coleção base que utiliza discriminadores para armazenar tanto clie
   "valor_custo": "Number",
   "categoria": "String",
   "valor_venda": "Number",
-  "fabr": "ObjectId",  // Referência ao Fabricante
+  "fabr": "ObjectId",  
   "createdAt": "Date",
   "updatedAt": "Date"
 }
@@ -69,13 +69,13 @@ Esta é uma coleção base que utiliza discriminadores para armazenar tanto clie
 ```json
 {
   "_id": "ObjectId",
-  "identificador": "String",  // único
+  "identificador": "String", 
   "dia": "Number",
   "mes": "Number",
   "ano": "Number",
   "valor_total": "Number",
-  "clnt": "ObjectId",  // Referência ao Cliente
-  "prod": "ObjectId",  // Referência ao Produto
+  "clnt": "ObjectId",  
+  "prod": "ObjectId",  
   "createdAt": "Date",
   "updatedAt": "Date"
 }
@@ -85,10 +85,10 @@ Esta é uma coleção base que utiliza discriminadores para armazenar tanto clie
 ```json
 {
   "_id": "ObjectId",
-  "username": "String",  // único
-  "email": "String",     // único
-  "password": "String",  // hash da senha
-  "role": "String",      // enum: ['user', 'admin']
+  "username": "String",  
+  "email": "String",    
+  "password": "String", 
+  "role": "String",      
   "createdAt": "Date",
   "updatedAt": "Date"
 }
