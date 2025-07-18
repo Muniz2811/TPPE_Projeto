@@ -10,7 +10,7 @@ jest.mock('jsonwebtoken', () => ({
 
 // Connect to the MongoDB container before all tests
 beforeAll(async () => {
-  const mongoUri = 'mongodb://mongodb:27017/sistema-vendas-test';
+  const mongoUri = 'mongodb://mongodb-test:27017/sistema-vendas-test';
   
   await mongoose.connect(mongoUri, {
     useNewUrlParser: true,
@@ -40,4 +40,4 @@ process.env.JWT_SECRET = 'test-secret-key';
 process.env.JWT_EXPIRES_IN = '1h';
 
 // Global test timeout
-jest.setTimeout(30000);
+jest.setTimeout(60000);
