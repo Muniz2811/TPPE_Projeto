@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="header">
+    <h2>{{ isEditMode ? 'Editar Venda' : 'Nova Venda' }}</h2>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Carregando dados...</p>
+  </div>
+
+  <form [formGroup]="vendaForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="identificador">Identificador*</label>
+        <input type="text" id="identificador" formControlName="identificador" 
+               [class.is-invalid]="vendaForm.get('identificador')?.invalid && vendaForm.get('identificador')?.touched">
+        <div class="error-text" *ngIf="getFieldError('identificador')">
+          {{ getFieldError('identificador') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="dia">Dia*</label>
+        <input type="number" id="dia" formControlName="dia" min="1" max="31"
+               [class.is-invalid]="vendaForm.get('dia')?.invalid && vendaForm.get('dia')?.touched">
+        <div class="error-text" *ngIf="getFieldError('dia')">
+          {{ getFieldError('dia') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="mes">Mês*</label>
+        <input type="number" id="mes" formControlName="mes" min="1" max="12"
+               [class.is-invalid]="vendaForm.get('mes')?.invalid && vendaForm.get('mes')?.touched">
+        <div class="error-text" *ngIf="getFieldError('mes')">
+          {{ getFieldError('mes') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ano">Ano*</label>
+        <input type="number" id="ano" formControlName="ano" min="2000"
+               [class.is-invalid]="vendaForm.get('ano')?.invalid && vendaForm.get('ano')?.touched">
+        <div class="error-text" *ngIf="getFieldError('ano')">
+          {{ getFieldError('ano') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="clnt">Cliente*</label>
+        <select id="clnt" formControlName="clnt" 
+                [class.is-invalid]="vendaForm.get('clnt')?.invalid && vendaForm.get('clnt')?.touched">
+          <option value="">Selecione um cliente</option>
+          <option *ngFor="let cliente of clientes" [value]="cliente._id">{{ cliente.nome }}</option>
+        </select>
+        <div class="error-text" *ngIf="getFieldError('clnt')">
+          {{ getFieldError('clnt') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="prod">Produto*</label>
+        <select id="prod" formControlName="prod" 
+                [class.is-invalid]="vendaForm.get('prod')?.invalid && vendaForm.get('prod')?.touched">
+          <option value="">Selecione um produto</option>
+          <option *ngFor="let produto of produtos" [value]="produto._id">{{ produto.nome }}</option>
+        </select>
+        <div class="error-text" *ngIf="getFieldError('prod')">
+          {{ getFieldError('prod') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="valor_total">Valor Total*</label>
+        <input type="number" id="valor_total" formControlName="valor_total" min="0" step="0.01"
+               [class.is-invalid]="vendaForm.get('valor_total')?.invalid && vendaForm.get('valor_total')?.touched">
+        <div class="error-text" *ngIf="getFieldError('valor_total')">
+          {{ getFieldError('valor_total') }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary" [disabled]="saving">
+        {{ saving ? 'Salvando...' : (isEditMode ? 'Atualizar' : 'Cadastrar') }}
+      </button>
+      <button type="button" class="btn-secondary" routerLink="/vendas">Cancelar</button>
+    </div>
+  </form>
+
+  <div class="back-link">
+    <a routerLink="/vendas">Voltar para a lista de vendas</a>
+  </div>
+</div>

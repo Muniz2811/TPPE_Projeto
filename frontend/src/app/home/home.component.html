@@ -1,0 +1,41 @@
+<div class="home-container">
+  <header class="app-header">
+    <h1>Sistema de Gestão de Vendas</h1>
+    <div class="user-info">
+      <span *ngIf="currentUser">Olá, {{currentUser.username}}</span>
+      <button class="logout-btn" (click)="logout()">Sair</button>
+    </div>
+  </header>
+  
+  <div class="content">
+    <h2>Bem-vindo ao Sistema de Gestão de Vendas</h2>
+    <p>Você está logado como <strong>{{currentUser?.role}}</strong>.</p>
+    <p>Agora você pode gerenciar vendas, produtos e clientes.</p>
+    
+    <div class="dashboard">
+      <div class="card">
+        <h3>Vendas</h3>
+        <p>Gerencie as vendas do sistema</p>
+        <button routerLink="/vendas">Ver Vendas</button>
+      </div>
+      
+      <div class="card">
+        <h3>Produtos</h3>
+        <p>Gerencie os produtos disponíveis</p>
+        <button routerLink="/produtos">Ver Produtos</button>
+      </div>
+      
+      <div class="card">
+        <h3>Clientes</h3>
+        <p>Gerencie os clientes da empresa</p>
+        <button routerLink="/clientes">Ver Clientes</button>
+      </div>
+      
+      <div class="card">
+        <h3>Fabricantes</h3>
+        <p>Gerencie os fabricantes dos produtos</p>
+        <button routerLink="/fabricantes">Ver Fabricantes</button>
+      </div>
+    </div>
+  </div>
+</div>

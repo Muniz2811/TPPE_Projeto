@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="header">
+    <h2>{{ isEditMode ? 'Editar' : 'Novo' }} Produto</h2>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Carregando dados...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-group">
+      <label for="nome">Nome do Produto *</label>
+      <input 
+        type="text" 
+        id="nome" 
+        formControlName="nome" 
+        [ngClass]="{'invalid': produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched}"
+      >
+      <div class="validation-error" *ngIf="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched">
+        <span *ngIf="produtoForm.get('nome')?.errors?.['required']">Nome do produto é obrigatório</span>
+        <span *ngIf="produtoForm.get('nome')?.errors?.['minlength']">Nome deve ter pelo menos 2 caracteres</span>
+        <span *ngIf="produtoForm.get('nome')?.errors?.['maxlength']">Nome deve ter no máximo 100 caracteres</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="categoria">Categoria *</label>
+      <input 
+        type="text" 
+        id="categoria" 
+        formControlName="categoria" 
+        [ngClass]="{'invalid': produtoForm.get('categoria')?.invalid && produtoForm.get('categoria')?.touched}"
+      >
+      <div class="validation-error" *ngIf="produtoForm.get('categoria')?.invalid && produtoForm.get('categoria')?.touched">
+        <span *ngIf="produtoForm.get('categoria')?.errors?.['required']">Categoria é obrigatória</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="valor_custo">Preço de Custo (R$) *</label>
+      <input 
+        type="number" 
+        id="valor_custo" 
+        formControlName="valor_custo" 
+        step="0.01"
+        min="0"
+        [ngClass]="{'invalid': produtoForm.get('valor_custo')?.invalid && produtoForm.get('valor_custo')?.touched}"
+      >
+      <div class="validation-error" *ngIf="produtoForm.get('valor_custo')?.invalid && produtoForm.get('valor_custo')?.touched">
+        <span *ngIf="produtoForm.get('valor_custo')?.errors?.['required']">Valor de custo é obrigatório</span>
+        <span *ngIf="produtoForm.get('valor_custo')?.errors?.['min']">Valor de custo não pode ser negativo</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="valor_venda">Preço de Venda (R$) *</label>
+      <input 
+        type="number" 
+        id="valor_venda" 
+        formControlName="valor_venda" 
+        step="0.01"
+        min="0"
+        [ngClass]="{'invalid': (produtoForm.get('valor_venda')?.invalid && produtoForm.get('valor_venda')?.touched) || getVendaInferiorAoCusto()}"
+      >
+      <div class="validation-error" 
+        *ngIf="(produtoForm.get('valor_venda')?.invalid && produtoForm.get('valor_venda')?.touched) || getVendaInferiorAoCusto()">
+        <span *ngIf="produtoForm.get('valor_venda')?.errors?.['required']">Valor de venda é obrigatório</span>
+        <span *ngIf="produtoForm.get('valor_venda')?.errors?.['min']">Valor de venda não pode ser negativo</span>
+        <span *ngIf="getVendaInferiorAoCusto()">Valor de venda deve ser maior que o valor de custo</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="fabr">Fabricante *</label>
+      <select 
+        id="fabr" 
+        formControlName="fabr"
+        [ngClass]="{'invalid': produtoForm.get('fabr')?.invalid && produtoForm.get('fabr')?.touched}"
+      >
+        <option value="">Selecione um fabricante</option>
+        <option *ngFor="let fabricante of fabricantes" [value]="fabricante._id">
+          {{ fabricante.nome }} ({{ fabricante.razao_social }})
+        </option>
+      </select>
+      <div class="validation-error" *ngIf="produtoForm.get('fabr')?.invalid && produtoForm.get('fabr')?.touched">
+        <span *ngIf="produtoForm.get('fabr')?.errors?.['required']">Fabricante é obrigatório</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary" [disabled]="saving">
+        <span *ngIf="!saving">{{ isEditMode ? 'Atualizar' : 'Cadastrar' }} Produto</span>
+        <span *ngIf="saving">
+          <div class="spinner-small"></div>
+          Salvando...
+        </span>
+      </button>
+      <button type="button" class="btn-secondary" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+
+  <div class="back-link">
+    <a routerLink="/produtos">Voltar para lista de produtos</a>
+  </div>
+</div>

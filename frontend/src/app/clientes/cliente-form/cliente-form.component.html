@@ -1,0 +1,124 @@
+<div class="form-container">
+  <header class="form-header">
+    <h1>{{ isEditMode ? 'Editar Cliente' : 'Novo Cliente' }}</h1>
+  </header>
+
+  <div *ngIf="loading" class="loading">
+    <p>Carregando...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-group">
+      <label for="nome">Nome*</label>
+      <input 
+        type="text" 
+        formControlName="nome" 
+        id="nome" 
+        [ngClass]="{ 'invalid': submitted && f['nome'].errors }"
+      />
+      <div *ngIf="submitted && f['nome'].errors" class="validation-message">
+        <div *ngIf="f['nome'].errors['required']">Nome é obrigatório</div>
+        <div *ngIf="f['nome'].errors['minlength']">Nome deve ter pelo menos 2 caracteres</div>
+        <div *ngIf="f['nome'].errors['maxlength']">Nome deve ter no máximo 100 caracteres</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-mail*</label>
+      <input 
+        type="email" 
+        formControlName="email" 
+        id="email" 
+        [ngClass]="{ 'invalid': submitted && f['email'].errors }"
+      />
+      <div *ngIf="submitted && f['email'].errors" class="validation-message">
+        <div *ngIf="f['email'].errors['required']">E-mail é obrigatório</div>
+        <div *ngIf="f['email'].errors['email']">Formato de e-mail inválido</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="telefone">Telefone* (ex: (11) 98765-4321)</label>
+      <input 
+        type="text" 
+        formControlName="telefone" 
+        id="telefone" 
+        [ngClass]="{ 'invalid': submitted && f['telefone'].errors }"
+      />
+      <div *ngIf="submitted && f['telefone'].errors" class="validation-message">
+        <div *ngIf="f['telefone'].errors['required']">Telefone é obrigatório</div>
+        <div *ngIf="f['telefone'].errors['pattern']">Formato de telefone inválido</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="endereco">Endereço*</label>
+      <input 
+        type="text" 
+        formControlName="endereco" 
+        id="endereco" 
+        [ngClass]="{ 'invalid': submitted && f['endereco'].errors }"
+      />
+      <div *ngIf="submitted && f['endereco'].errors" class="validation-message">
+        <div *ngIf="f['endereco'].errors['required']">Endereço é obrigatório</div>
+        <div *ngIf="f['endereco'].errors['minlength']">Endereço deve ter pelo menos 5 caracteres</div>
+        <div *ngIf="f['endereco'].errors['maxlength']">Endereço deve ter no máximo 200 caracteres</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cpf">CPF* (ex: 123.456.789-00)</label>
+      <input 
+        type="text" 
+        formControlName="cpf" 
+        id="cpf" 
+        [ngClass]="{ 'invalid': submitted && f['cpf'].errors }"
+      />
+      <div *ngIf="submitted && f['cpf'].errors" class="validation-message">
+        <div *ngIf="f['cpf'].errors['required']">CPF é obrigatório</div>
+        <div *ngIf="f['cpf'].errors['pattern']">Formato de CPF inválido (use xxx.xxx.xxx-xx)</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="rg">RG*</label>
+      <input 
+        type="text" 
+        formControlName="rg" 
+        id="rg" 
+        [ngClass]="{ 'invalid': submitted && f['rg'].errors }"
+      />
+      <div *ngIf="submitted && f['rg'].errors" class="validation-message">
+        <div *ngIf="f['rg'].errors['required']">RG é obrigatório</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="forma_pagamento">Forma de Pagamento Preferida*</label>
+      <select 
+        formControlName="forma_pagamento" 
+        id="forma_pagamento" 
+        [ngClass]="{ 'invalid': submitted && f['forma_pagamento'].errors }"
+      >
+        <option value="">Selecione uma opção</option>
+        <option *ngFor="let forma of formasPagamento" [value]="forma">{{ forma }}</option>
+      </select>
+      <div *ngIf="submitted && f['forma_pagamento'].errors" class="validation-message">
+        <div *ngIf="f['forma_pagamento'].errors['required']">Forma de pagamento é obrigatória</div>
+      </div>
+    </div>
+
+    <div class="form-buttons">
+      <button type="button" class="btn-secondary" (click)="cancelar()">Cancelar</button>
+      <button type="submit" class="btn-primary">{{ isEditMode ? 'Atualizar' : 'Cadastrar' }}</button>
+    </div>
+  </form>
+</div>

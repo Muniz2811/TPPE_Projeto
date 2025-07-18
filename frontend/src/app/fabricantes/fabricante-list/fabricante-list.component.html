@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="header">
+    <h2>Gerenciamento de Fabricantes</h2>
+    <button class="btn-primary" (click)="adicionarFabricante()">Novo Fabricante</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Carregando fabricantes...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="!loading && !error && fabricantes.length === 0" class="empty-state">
+    <p>Nenhum fabricante encontrado. Clique em "Novo Fabricante" para adicionar.</p>
+  </div>
+
+  <div *ngIf="!loading && fabricantes.length > 0" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CNPJ</th>
+          <th>Razão Social</th>
+          <th>Telefone</th>
+          <th>Contato</th>
+          <th>Email</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fabricante of fabricantes">
+          <td>{{ fabricante.nome }}</td>
+          <td>{{ fabricante.cnpj }}</td>
+          <td>{{ fabricante.razao_social }}</td>
+          <td>{{ fabricante.telefone }}</td>
+          <td>{{ fabricante.contato }}</td>
+          <td>{{ fabricante.email }}</td>
+          <td class="actions">
+            <button class="btn-edit" (click)="editarFabricante(fabricante._id)">Editar</button>
+            <button class="btn-delete" (click)="excluirFabricante(fabricante._id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="back-link">
+    <a routerLink="/home">Voltar para a página inicial</a>
+  </div>
+</div>

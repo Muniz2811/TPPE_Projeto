@@ -41,7 +41,6 @@ try {
   
   console.log('\n\u2705 Testes executados com sucesso!');
 } catch (error) {
-  console.error('\n\u274C Falha na execução dos testes:', error.message);
   process.exitCode = 1;
 } finally {
   // Restaurar a configuração original

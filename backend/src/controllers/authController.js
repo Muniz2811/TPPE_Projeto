@@ -21,7 +21,7 @@ class AuthController {
       if (existingUser) {
         return res.status(400).json({ 
           success: false, 
-          message: 'Usuário já existe com este email ou nome de usuário' 
+          message: 'Email já está em uso' 
         });
       }
 
@@ -37,12 +37,14 @@ class AuthController {
 
       res.status(201).json({
         success: true,
-        token,
-        user: {
-          id: user._id,
-          username: user.username,
-          email: user.email,
-          role: user.role
+        data: {
+          token,
+          user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            role: user.role
+          }
         }
       });
     } catch (error) {
@@ -71,12 +73,14 @@ class AuthController {
 
       res.status(200).json({
         success: true,
-        token,
-        user: {
-          id: user._id,
-          username: user.username,
-          email: user.email,
-          role: user.role
+        data: {
+          token,
+          user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            role: user.role
+          }
         }
       });
     } catch (error) {
@@ -105,7 +109,7 @@ class AuthController {
 
       res.status(200).json({
         success: true,
-        user: {
+        data: {
           id: user._id,
           username: user.username,
           email: user.email,

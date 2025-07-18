@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="header">
+    <h2>Gerenciamento de Produtos</h2>
+    <button class="btn-primary" (click)="criarProduto()">Novo Produto</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Carregando produtos...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="!loading && !error && produtos.length === 0" class="empty-state">
+    <p>Nenhum produto encontrado. Clique em "Novo Produto" para adicionar.</p>
+  </div>
+
+  <div *ngIf="!loading && produtos.length > 0" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Preço de Custo</th>
+          <th>Preço de Venda</th>
+          <th>Fabricante</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produto of produtos">
+          <td>{{ produto.nome }}</td>
+          <td>{{ produto.categoria }}</td>
+          <td>{{ formatarValor(produto.valor_custo) }}</td>
+          <td>{{ formatarValor(produto.valor_venda) }}</td>
+          <td>{{ getFabricanteNome(produto.fabr) }}</td>
+          <td class="actions">
+            <button class="btn-edit" (click)="editarProduto(produto._id)">Editar</button>
+            <button class="btn-delete" (click)="excluirProduto(produto._id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="back-link">
+    <a routerLink="/home">Voltar para a página inicial</a>
+  </div>
+</div>

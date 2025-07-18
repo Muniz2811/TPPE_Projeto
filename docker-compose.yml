@@ -32,6 +32,8 @@ services:
       - backend
     networks:
       - app-network
+    environment:
+      - NODE_ENV=development
     command: npm start
 
 

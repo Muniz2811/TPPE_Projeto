@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Frontend para o Sistema de Gestão de Vendas",
   "scripts": {
-    "start": "echo 'Frontend Angular - Hello World' && sleep infinity",
-    "build": "echo 'Building frontend'"
+    "ng": "ng",
+    "start": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json",
+    "build": "ng build --configuration production",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
   "dependencies": {
     "@angular/common": "^16.0.0",

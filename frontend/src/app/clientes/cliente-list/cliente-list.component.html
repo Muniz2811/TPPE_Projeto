@@ -1,0 +1,54 @@
+<div class="clientes-container">
+  <header class="page-header">
+    <h1>Gerenciamento de Clientes</h1>
+    <button class="btn-primary novo-btn" (click)="novoCliente()">Novo Cliente</button>
+  </header>
+
+  <div *ngIf="loading" class="loading">
+    <p>Carregando clientes...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div class="clientes-list" *ngIf="!loading && clientes.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Telefone</th>
+          <th>CPF</th>
+          <th>Forma de Pagamento</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.telefone }}</td>
+          <td>{{ cliente.cpf }}</td>
+          <td>{{ cliente.forma_pagamento }}</td>
+          <td class="acoes-btns">
+            <button class="btn-edit" (click)="editarCliente(cliente._id!)">Editar</button>
+            <button class="btn-delete" (click)="excluirCliente(cliente)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="no-data" *ngIf="!loading && clientes.length === 0">
+    <p>Nenhum cliente cadastrado. Clique em "Novo Cliente" para adicionar.</p>
+  </div>
+
+  <div class="back-button">
+    <a routerLink="/home">Voltar para o Início</a>
+  </div>
+</div>

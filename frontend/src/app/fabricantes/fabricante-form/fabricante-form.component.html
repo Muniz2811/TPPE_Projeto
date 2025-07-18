@@ -1,0 +1,148 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Editar' : 'Novo' }} Fabricante</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ successMessage }}
+    <button type="button" class="btn-close" (click)="successMessage = ''" aria-label="Close"></button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" (click)="error = ''" aria-label="Close"></button>
+  </div>
+
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+  </div>
+
+  <form [formGroup]="fabricanteForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="nome" class="form-label">Nome*</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="nome" 
+          formControlName="nome"
+          [ngClass]="{'is-invalid': fabricanteForm.get('nome')?.invalid && fabricanteForm.get('nome')?.touched}"
+        >
+        <div *ngIf="fabricanteForm.get('nome')?.invalid && fabricanteForm.get('nome')?.touched" class="invalid-feedback">
+          <div *ngIf="fabricanteForm.get('nome')?.hasError('required')">Nome é obrigatório</div>
+          <div *ngIf="fabricanteForm.get('nome')?.hasError('minlength')">Nome deve ter pelo menos 2 caracteres</div>
+          <div *ngIf="fabricanteForm.get('nome')?.hasError('maxlength')">Nome deve ter no máximo 100 caracteres</div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="razao_social" class="form-label">Razão Social*</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="razao_social" 
+          formControlName="razao_social"
+          [ngClass]="{'is-invalid': fabricanteForm.get('razao_social')?.invalid && fabricanteForm.get('razao_social')?.touched}"
+        >
+        <div *ngIf="fabricanteForm.get('razao_social')?.invalid && fabricanteForm.get('razao_social')?.touched" class="invalid-feedback">
+          <div *ngIf="fabricanteForm.get('razao_social')?.hasError('required')">Razão Social é obrigatória</div>
+          <div *ngIf="fabricanteForm.get('razao_social')?.hasError('minlength')">Razão Social deve ter pelo menos 3 caracteres</div>
+          <div *ngIf="fabricanteForm.get('razao_social')?.hasError('maxlength')">Razão Social deve ter no máximo 150 caracteres</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="cnpj" class="form-label">CNPJ*</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="cnpj" 
+          formControlName="cnpj"
+          placeholder="00.000.000/0000-00"
+          [ngClass]="{'is-invalid': fabricanteForm.get('cnpj')?.invalid && fabricanteForm.get('cnpj')?.touched}"
+        >
+        <div *ngIf="fabricanteForm.get('cnpj')?.invalid && fabricanteForm.get('cnpj')?.touched" class="invalid-feedback">
+          <div *ngIf="fabricanteForm.get('cnpj')?.hasError('required')">CNPJ é obrigatório</div>
+          <div *ngIf="fabricanteForm.get('cnpj')?.hasError('pattern')">CNPJ inválido (formato: 00.000.000/0000-00)</div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="telefone" class="form-label">Telefone*</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="telefone" 
+          formControlName="telefone"
+          placeholder="(00) 00000-0000"
+          [ngClass]="{'is-invalid': fabricanteForm.get('telefone')?.invalid && fabricanteForm.get('telefone')?.touched}"
+        >
+        <div *ngIf="fabricanteForm.get('telefone')?.invalid && fabricanteForm.get('telefone')?.touched" class="invalid-feedback">
+          <div *ngIf="fabricanteForm.get('telefone')?.hasError('required')">Telefone é obrigatório</div>
+          <div *ngIf="fabricanteForm.get('telefone')?.hasError('pattern')">Formato de telefone inválido</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="email" class="form-label">Email*</label>
+        <input 
+          type="email" 
+          class="form-control" 
+          id="email" 
+          formControlName="email"
+          [ngClass]="{'is-invalid': fabricanteForm.get('email')?.invalid && fabricanteForm.get('email')?.touched}"
+        >
+        <div *ngIf="fabricanteForm.get('email')?.invalid && fabricanteForm.get('email')?.touched" class="invalid-feedback">
+          <div *ngIf="fabricanteForm.get('email')?.hasError('required')">Email é obrigatório</div>
+          <div *ngIf="fabricanteForm.get('email')?.hasError('email')">Email inválido</div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="contato" class="form-label">Pessoa de Contato*</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="contato" 
+          formControlName="contato"
+          [ngClass]="{'is-invalid': fabricanteForm.get('contato')?.invalid && fabricanteForm.get('contato')?.touched}"
+        >
+        <div *ngIf="fabricanteForm.get('contato')?.invalid && fabricanteForm.get('contato')?.touched" class="invalid-feedback">
+          <div *ngIf="fabricanteForm.get('contato')?.hasError('required')">Pessoa de contato é obrigatória</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="endereco" class="form-label">Endereço*</label>
+      <textarea 
+        class="form-control" 
+        id="endereco" 
+        formControlName="endereco" 
+        rows="3"
+        [ngClass]="{'is-invalid': fabricanteForm.get('endereco')?.invalid && fabricanteForm.get('endereco')?.touched}"
+      ></textarea>
+      <div *ngIf="fabricanteForm.get('endereco')?.invalid && fabricanteForm.get('endereco')?.touched" class="invalid-feedback">
+        <div *ngIf="fabricanteForm.get('endereco')?.hasError('required')">Endereço é obrigatório</div>
+        <div *ngIf="fabricanteForm.get('endereco')?.hasError('minlength')">Endereço deve ter pelo menos 5 caracteres</div>
+        <div *ngIf="fabricanteForm.get('endereco')?.hasError('maxlength')">Endereço deve ter no máximo 200 caracteres</div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="saving"
+      >
+        <span *ngIf="saving" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+        {{ isEditMode ? 'Atualizar' : 'Cadastrar' }}
+      </button>
+      <button type="button" class="btn btn-secondary" routerLink="/fabricantes">Cancelar</button>
+    </div>
+  </form>
+</div>

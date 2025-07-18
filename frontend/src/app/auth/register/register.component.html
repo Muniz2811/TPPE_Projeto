@@ -1,0 +1,79 @@
+<div class="register-container">
+  <div class="card">
+    <h2 class="card-header">Cadastro de Usuário</h2>
+    <div class="card-body">
+      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+      <div *ngIf="success" class="alert alert-success">{{success}}</div>
+      
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="username">Nome de Usuário</label>
+          <input 
+            type="text" 
+            formControlName="username" 
+            class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" 
+          />
+          <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+            <div *ngIf="f['username'].errors['required']">Nome de usuário é obrigatório</div>
+            <div *ngIf="f['username'].errors['minlength']">Nome de usuário deve ter pelo menos 3 caracteres</div>
+            <div *ngIf="f['username'].errors['maxlength']">Nome de usuário não pode ter mais de 50 caracteres</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            formControlName="email" 
+            class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" 
+          />
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+            <div *ngIf="f['email'].errors['required']">Email é obrigatório</div>
+            <div *ngIf="f['email'].errors['email']">Email inválido</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input 
+            type="password" 
+            formControlName="password" 
+            class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" 
+          />
+          <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+            <div *ngIf="f['password'].errors['required']">Senha é obrigatória</div>
+            <div *ngIf="f['password'].errors['minlength']">Senha deve ter pelo menos 6 caracteres</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar Senha</label>
+          <input 
+            type="password" 
+            formControlName="confirmPassword" 
+            class="form-control" 
+            [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }" 
+          />
+          <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+            <div *ngIf="f['confirmPassword'].errors['required']">Confirmação de senha é obrigatória</div>
+            <div *ngIf="f['confirmPassword'].errors['passwordMismatch']">As senhas não coincidem</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Cadastrar
+          </button>
+        </div>
+        
+        <div class="form-group login-link">
+          <p>Já possui uma conta? <a routerLink="/login">Fazer Login</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
