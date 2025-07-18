@@ -20,6 +20,11 @@ package-lock.json
 /.nuxt
 /.cache
 
+# Angular
+.angular/
+.angular/cache/
+
+
 # Logs
 logs
 *.log
