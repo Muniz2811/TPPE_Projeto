@@ -1,0 +1,79 @@
+<div class="dashboard-container">
+  <h1>Dashboard de Vendas</h1>
+
+  <div *ngIf="carregando" class="loading">
+    <p>Carregando dados...</p>
+  </div>
+
+  <div *ngIf="erro" class="error-message">
+    <p>{{ erro }}</p>
+    <button (click)="carregarDados()" class="btn btn-primary">Tentar novamente</button>
+  </div>
+
+  <div *ngIf="!carregando && !erro" class="dashboard-content">
+    <!-- Cards de resumo -->
+    <div class="resumo-cards">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total de Vendas</h5>
+          <p class="card-value">{{ resumoVendas.totalVendas || 0 }}</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Valor Total</h5>
+          <p class="card-value">{{ formatarMoeda(resumoVendas.valorTotal || 0) }}</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Valor Médio</h5>
+          <p class="card-value">{{ formatarMoeda(resumoVendas.mediaVendas || 0) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="graficos-container">
+      <div class="grafico-box">
+        <h3>Top 10 Produtos por Valor de Venda</h3>
+        <div class="canvas-container">
+          <canvas id="grafico-produtos"></canvas>
+        </div>
+      </div>
+      
+      <div class="grafico-box">
+        <h3>Vendas Mensais</h3>
+        <div class="canvas-container">
+          <canvas id="grafico-vendas-mensais"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de vendas por produto -->
+    <div class="tabela-container">
+      <h3>Detalhamento de Vendas por Produto</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Quantidade Vendida</th>
+            <th>Valor Total</th>
+            <th>% do Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of vendasPorProduto">
+            <td>{{ item.nomeProduto }}</td>
+            <td>{{ item.quantidadeVendida }}</td>
+            <td>{{ formatarMoeda(item.valorTotal) }}</td>
+            <td>{{ formatarPercentual(item.percentual) }}</td>
+          </tr>
+          <tr *ngIf="vendasPorProduto.length === 0">
+            <td colspan="4" class="text-center">Nenhuma venda registrada</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

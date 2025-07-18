@@ -18,6 +18,7 @@ import { FabricanteListComponent } from './fabricantes/fabricante-list/fabricant
 import { FabricanteFormComponent } from './fabricantes/fabricante-form/fabricante-form.component';
 import { VendaListComponent } from './vendas/venda-list/venda-list.component';
 import { VendaFormComponent } from './vendas/venda-form/venda-form.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'vendas', component: VendaListComponent, canActivate: [AuthGuard] },
   { path: 'vendas/novo', component: VendaFormComponent, canActivate: [AuthGuard] },
   { path: 'vendas/editar/:id', component: VendaFormComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -51,7 +53,8 @@ const routes: Routes = [
     FabricanteListComponent,
     FabricanteFormComponent,
     VendaListComponent,
-    VendaFormComponent
+    VendaFormComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

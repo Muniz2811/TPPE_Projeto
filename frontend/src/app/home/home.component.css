@@ -76,3 +76,30 @@
 .card button:hover {
   background-color: #303f9f;
 }
+
+.card.highlight {
+  border: 2px solid #4caf50;
+  background-color: #f9fff9;
+  position: relative;
+}
+
+.card.highlight::before {
+  content: 'Novo';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #4caf50;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.card.highlight button {
+  background-color: #4caf50;
+}
+
+.card.highlight button:hover {
+  background-color: #388e3c;
+}
