@@ -36,7 +36,9 @@ export interface ProdutoResponse {
   providedIn: 'root'
 })
 export class ProdutoService {
-  private apiUrl = '/api/produtos';
+    
+  private apiUrl = `${environment.apiUrl}/produtos`;
+  
 
   constructor(private http: HttpClient) { }
 

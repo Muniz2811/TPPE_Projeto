@@ -15,7 +15,7 @@ export interface FabricanteResponse {
   providedIn: 'root'
 })
 export class FabricanteService {
-  private apiUrl = '/api/fabricantes';
+  private apiUrl = `${environment.apiUrl}/fabricantes`;
 
   constructor(private http: HttpClient) { }
 

@@ -28,7 +28,7 @@ export interface ClienteResponse {
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl = '/api/clientes';
+  private apiUrl = `${environment.apiUrl}/clientes`;
 
   constructor(private http: HttpClient) { }
 
