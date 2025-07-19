@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Fabricante } from './produto.service';
+import { environment } from '../../environments/environment';
 
 export interface FabricanteResponse {
   success: boolean;
