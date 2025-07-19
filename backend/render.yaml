@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sistema-vendas-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        value: ${MONGO_URI}
+    plan: free
