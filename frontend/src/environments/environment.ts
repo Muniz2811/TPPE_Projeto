@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: '/api'
+  production: true,
+  apiUrl: 'https://tppe-projeto-wn9o.onrender.com/api'
 };
